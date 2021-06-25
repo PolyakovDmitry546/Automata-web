@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style type="text/css">
+    div.notification {
+      margin-left: 14.5rem;
+      margin-right: 14.5rem;
+      margin-top: 1.25rem;
+      margin-bottom: 1.25rem;
+      padding: 0.5rem 1.5rem 0.5rem 1.5rem;;
+    }
+
+    .groups-menu {
+      background-color: lemonchiffon;
+    }
+
+    .users {
+      background-color: whitesmoke;
+    }
+
+    .user {
+      background-color: LightSkyBlue;
+    }
+</style>
+<div class="tile is-ancestor">
+  <div class="tile is-parent">
+    <div class="tile is-2 is-child box groups-menu">
+      <aside class="menu">
+        <p class="menu-label">
+          Группы
+        </p>
+        <ul class="menu-list">
+          {% for group in groups %}
+          <li><a href="{{ url_for('main.groups_users', id=group.id) }}">
+            {{ group.name }}-{{ group.number }}-{{ group.year }}
+          </a></li>
+          {% endfor %}
+        </ul>
+      </aside>
+    </div>
+    <div class="tile is-child box users">
+      {% if current_group %}
+        <h2>{{ current_group }}</h2>
+      {% endif %}
+      <hr class="dropdown-divider">
+      {% if users %}
+      {% for user in users %}
+      <a href="{{ url_for('main.attempts', id=user.id) }}">   
+          <div class="notification user">
+              <div class="content">
+                {{ user.name }} {{ user.surname }}
+              </div>
+          </div>
+      </a>
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

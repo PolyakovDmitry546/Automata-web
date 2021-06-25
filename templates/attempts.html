@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style type="text/css">
+  div.notification {
+    margin-left: 14.5rem;
+    margin-right: 14.5rem;
+  }
+</style>
+<h1 class="title">Попытки</h1>
+{% for attempt in attempts %}
+{% if attempt.is_success %}
+<div class="notification is-success is-light">
+{% else %}
+<div class="notification is-danger is-light">
+{% endif %}
+  <div class="navbar-menu">
+    <div class="navbar-start">
+      #{{attempts|length - loop.index + 1}}
+    </div>
+    <div class="navbar-end">
+      {{attempt.date.strftime('%I:%M  %d.%m.%Y')}}
+    </div>
+  </div>
+  <div class="content">
+    Решено задач {{ attempt.right_tasks }}/{{ attempt.total_tasks }}
+  </div>
+</div>
+{% endfor %}
+{% endblock %}
